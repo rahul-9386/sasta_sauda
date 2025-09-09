@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce store by Rahul Bhardwaj</title>
+    <meta name="description" content="Flipkart Clone - Buy electronics, fashion, home appliances and more.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Sasta Sauda</h1>
+            </div>
+            <div class="search-bar">
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="Search for products, brands and more" 
+                    aria-label="Search Products"
+                >
+                <button id="search-btn">Search</button>
+            </div>
+            <div class="cart">
+                <button id="cart-btn" aria-label="View Cart">
+                    Cart (<span id="cart-count">0</span>)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="categories">
+        <ul>
+            <li><a href="#" data-category="all">All Products</a></li> 
+            <li><a href="#" data-category="electronics">Electronics</a></li>
+            <li><a href="#" data-category="fashion">Fashion</a></li>
+            <li><a href="#" data-category="home">Home & Furniture</a></li> 
+            <li><a href="#" data-category="appliances">Appliances</a></li>
+            <li><a href="#" data-category="beauty">Beauty</a></li>
+            <li><a href="#" data-category="sports">Sports</a></li>
+        </ul>
+    </nav>
+    <!-- Main Content -->
+    <main>
+        <section class="products">
+            <h2>Featured Products</h2>
+            <div class="product-grid" id="product-grid">
+                <!-- Products will be injected here via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <span id="year"></span> Sasta Souda. All rights reserved.</p>
+    
+    <div class="social-links">
+        <a href="https://www.instagram.com/pb_43_rahul/" target="_blank" aria-label="Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="24">
+        </a>
+        <a href="https://www.linkedin.com/in/rahul97802/" target="_blank" aria-label="LinkedIn">
+            <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn" width="24">
+        </a>
+        <a href="mailto:bhardwajrahul97802@gmail.com" aria-label="Email">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" width="24">
+        </a>
+        <a href="https://github.com/rahul-9386" target="_blank" aria-label="GitHub">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" alt="GitHub" width="24">
+        </a>
+    </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal" role="dialog" aria-labelledby="cart-title" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close" role="button" aria-label="Close Cart">&times;</span>
+            <h2 id="cart-title">Your Cart</h2>
+            <div id="cart-items">
+                <!-- Cart items will appear here -->
+            </div>
+            <button id="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="modal" role="dialog" aria-labelledby="product-title" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close" role="button" aria-label="Close Product Details">&times;</span>
+            <div id="product-details">
+                <!-- Product details will be shown here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script>
+        // Auto update footer year
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
