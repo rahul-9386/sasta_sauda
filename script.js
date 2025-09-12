@@ -13,10 +13,14 @@ const cartCount = document.getElementById('cart-count');
 const cartModal = document.getElementById('cart-modal');
 const cartItems = document.getElementById('cart-items');
 const checkoutBtn = document.getElementById('checkout-btn');
+const continueShoppingBtn = document.getElementById('continue-shopping-btn');
 const productModal = document.getElementById('product-modal');
 const productDetails = document.getElementById('product-details');
 const closeBtns = document.querySelectorAll('.close');
 const categoryLinks = document.querySelectorAll('.categories a');
+const checkoutModal = document.getElementById('checkout-modal');
+const checkoutForm = document.getElementById('checkout-form');
+
 
 // --- FUNCTIONS ---
 
@@ -94,13 +98,22 @@ function showCart() {
       const div = document.createElement('div');
       div.className = 'cart-item';
       div.innerHTML = `
-        <span>${item.name} (x${item.quantity})</span>
-        <span>₹${itemTotal.toFixed(2)}</span>
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
+        </div>
+        <div class="cart-item-controls">
+          <button class="qty-btn qty-minus" data-id="${item.id}">-</button>
+          <span class="qty-display">${item.quantity}</span>
+          <button class="qty-btn qty-plus" data-id="${item.id}">+</button>
+        </div>
+        <div class="cart-item-total">₹${itemTotal.toFixed(2)}</div>
         <button class="cart-item-remove" data-id="${item.id}">&times;</button>
       `;
       cartItems.appendChild(div);
     });
-    cartItems.innerHTML += `<hr><h4>Total: ₹${total.toFixed(2)}</h4>`;
+    cartItems.innerHTML += `<hr><div class="cart-total"><strong>Total: ₹${total.toFixed(2)}</strong></div>`;
   }
   cartModal.style.display = 'block';
 }
@@ -122,29 +135,58 @@ searchInput.addEventListener('input', searchProducts);
 searchInput.addEventListener('keypress', e => { if (e.key==='Enter') searchProducts(); });
 cartBtn.addEventListener('click', showCart);
 checkoutBtn.addEventListener('click', () => {
-  window.location.href = "error.html";
-  cart = [];
-  saveCart();
-  updateCart();
+  cartModal.style.display = 'none';
+  checkoutModal.style.display = 'block';
+});
+continueShoppingBtn.addEventListener('click', () => {
   cartModal.style.display = 'none';
 });
 closeBtns.forEach(btn => btn.addEventListener('click', () => {
   cartModal.style.display = 'none';
   productModal.style.display = 'none';
+  checkoutModal.style.display = 'none';
 }));
 window.addEventListener('click', e => {
   if (e.target===cartModal) cartModal.style.display='none';
   if (e.target===productModal) productModal.style.display='none';
+  if (e.target===checkoutModal) checkoutModal.style.display='none';
 });
 cartItems.addEventListener('click', e => {
+  const id = parseInt(e.target.dataset.id);
   if(e.target.classList.contains('cart-item-remove')){
-    const id = parseInt(e.target.dataset.id);
     cart = cart.filter(item=>item.id!==id);
     updateCart();
     saveCart();
     showCart();
+  } else if (e.target.classList.contains('qty-plus')) {
+    increaseQuantity(id);
+  } else if (e.target.classList.contains('qty-minus')) {
+    decreaseQuantity(id);
   }
 });
+
+function increaseQuantity(id) {
+  const item = cart.find(i => i.id === id);
+  if (item) {
+    item.quantity++;
+    updateCart();
+    saveCart();
+    showCart();
+  }
+}
+
+function decreaseQuantity(id) {
+  const item = cart.find(i => i.id === id);
+  if (item) {
+    item.quantity--;
+    if (item.quantity <= 0) {
+      cart = cart.filter(i => i.id !== id);
+    }
+    updateCart();
+    saveCart();
+    showCart();
+  }
+}
 productDetails.addEventListener('click', e=>{
   if(e.target.classList.contains('add-to-cart-btn')){
     const id = parseInt(e.target.dataset.id);
@@ -164,15 +206,30 @@ categoryLinks.forEach(link => {
   });
 });
 
+function fetchProducts() {
+  return fetch('products.json')
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    });
+}
+
+checkoutForm.addEventListener('submit', e => {
+  e.preventDefault();
+  // Redirect to error.html on submit
+  window.location.href = 'error.html';
+});
+
 // --- INITIALIZE ---
-fetch('products.json')
-  .then(res=>res.json())
-  .then(data=>{
-    products=data;
+fetchProducts()
+  .then(data => {
+    products = data;
     loadProducts(products);
     updateCart();
   })
-  .catch(err=>{
+  .catch(err => {
     console.error('Error loading products:', err);
-    productGrid.innerHTML='<p>Failed to load products.</p>';
+    productGrid.innerHTML = '<p>Failed to load products.</p>';
   });
