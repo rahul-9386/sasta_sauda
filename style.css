@@ -736,6 +736,122 @@ footer .footer-bottom {
     }
 }
 
+/* Login/Signup Modal Styles */
+.login-modal, .signup-modal {
+    background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.5s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.login-modal h2, .signup-modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #667eea;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#login-form, #signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#login-form label, #signup-form label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#login-form input, #signup-form input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+#login-form input:focus, #signup-form input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+    background: #f8f9ff;
+}
+
+#login-form button, #signup-form button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#login-form button:hover, #signup-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.login-modal p, .signup-modal p {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.login-modal p a, .signup-modal p a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.login-modal p a:hover, .signup-modal p a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Header Login Button */
+#login-btn {
+    background-color: #667eea;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+}
+
+#login-btn:hover {
+    background-color: #5a67d8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header {
@@ -834,6 +950,25 @@ footer .footer-bottom {
     #checkout-form button[type="submit"] {
         font-size: 14px;
         padding: 10px;
+    }
+
+    .login-modal, .signup-modal {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .login-modal h2, .signup-modal h2 {
+        font-size: 20px;
+    }
+
+    #login-form input, #signup-form input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    #login-form button, #signup-form button {
+        font-size: 14px;
+        padding: 10px 16px;
     }
 }
 

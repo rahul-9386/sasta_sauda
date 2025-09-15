@@ -24,6 +24,7 @@
                 <button id="search-btn">Search</button>
             </div>
             <div class="cart">
+                <button id="login-btn" aria-label="Login">Login</button>
                 <button id="cart-btn" aria-label="View Cart">
                     Cart (<span id="cart-count">0</span>)
                 </button>
@@ -162,6 +163,45 @@
             <div id="product-details">
                 <!-- Product details will be shown here -->
             </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal" role="dialog" aria-labelledby="login-title" aria-hidden="true">
+        <div class="modal-content login-modal">
+            <span class="close" role="button" aria-label="Close Login">&times;</span>
+            <h2 id="login-title">Login to Sasta Sauda</h2>
+            <form id="login-form">
+                <label for="login-email">Gmail or Mobile Number</label>
+                <input type="text" id="login-email" name="email" required placeholder="Enter Gmail or Mobile Number">
+
+                <label for="login-password">Password (8-12 digits)</label>
+                <input type="password" id="login-password" name="password" required placeholder="Enter Password" minlength="8" maxlength="12">
+
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="switch-to-signup">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal" role="dialog" aria-labelledby="signup-title" aria-hidden="true">
+        <div class="modal-content signup-modal">
+            <span class="close" role="button" aria-label="Close Signup">&times;</span>
+            <h2 id="signup-title">Sign Up for Sasta Sauda</h2>
+            <form id="signup-form">
+                <label for="signup-email">Gmail or Mobile Number</label>
+                <input type="text" id="signup-email" name="email" required placeholder="Enter Gmail or Mobile Number">
+
+                <label for="signup-password">Password (8-12 digits)</label>
+                <input type="password" id="signup-password" name="password" required placeholder="Enter Password" minlength="8" maxlength="12">
+
+                <label for="signup-confirm-password">Confirm Password</label>
+                <input type="password" id="signup-confirm-password" name="confirm-password" required placeholder="Confirm Password" minlength="8" maxlength="12">
+
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
         </div>
     </div>
 

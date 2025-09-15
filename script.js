@@ -222,6 +222,109 @@ checkoutForm.addEventListener('submit', e => {
   window.location.href = 'error.html';
 });
 
+// --- LOGIN/SIGNUP MODALS ---
+const loginBtn = document.getElementById('login-btn');
+const loginModal = document.getElementById('login-modal');
+const signupModal = document.getElementById('signup-modal');
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const switchToSignup = document.getElementById('switch-to-signup');
+const switchToLogin = document.getElementById('switch-to-login');
+
+// Open login modal
+loginBtn.addEventListener('click', () => {
+  loginModal.style.display = 'block';
+});
+
+// Switch to signup modal
+switchToSignup.addEventListener('click', e => {
+  e.preventDefault();
+  loginModal.style.display = 'none';
+  signupModal.style.display = 'block';
+});
+
+// Switch to login modal
+switchToLogin.addEventListener('click', e => {
+  e.preventDefault();
+  signupModal.style.display = 'none';
+  loginModal.style.display = 'block';
+});
+
+// Close modals
+document.querySelectorAll('#login-modal .close, #signup-modal .close').forEach(btn => {
+  btn.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+    signupModal.style.display = 'none';
+  });
+});
+
+// Close on outside click
+window.addEventListener('click', e => {
+  if (e.target === loginModal) loginModal.style.display = 'none';
+  if (e.target === signupModal) signupModal.style.display = 'none';
+});
+
+// Validation functions
+function validateEmailOrPhone(value) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\d{10}$/;
+  return emailRegex.test(value) || phoneRegex.test(value);
+}
+
+function validatePassword(password) {
+  return password.length >= 8 && password.length <= 12;
+}
+
+// Login form validation
+loginForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+
+  if (!validateEmailOrPhone(email)) {
+    alert('Please enter a valid Gmail address or 10-digit mobile number.');
+    return;
+  }
+
+  if (!validatePassword(password)) {
+    alert('Password must be 8-12 digits long.');
+    return;
+  }
+
+  // Simulate login success (in real app, send to server)
+  alert('Login successful!');
+  loginModal.style.display = 'none';
+  // Here you can redirect or update UI for logged-in user
+});
+
+// Signup form validation
+signupForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const email = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value;
+  const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+  if (!validateEmailOrPhone(email)) {
+    alert('Please enter a valid Gmail address or 10-digit mobile number.');
+    return;
+  }
+
+  if (!validatePassword(password)) {
+    alert('Password must be 8-12 digits long.');
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert('Passwords do not match.');
+    return;
+  }
+
+  // Simulate signup success (in real app, send to server)
+  alert('Signup successful! Please login.');
+  signupModal.style.display = 'none';
+  loginModal.style.display = 'block';
+});
+
 // --- INITIALIZE ---
 fetchProducts()
   .then(data => {
@@ -233,3 +336,8 @@ fetchProducts()
     console.error('Error loading products:', err);
     productGrid.innerHTML = '<p>Failed to load products.</p>';
   });
+
+// Show login modal on page load
+window.addEventListener('load', () => {
+  loginModal.style.display = 'block';
+});
